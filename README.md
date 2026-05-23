@@ -3,7 +3,7 @@
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:050505,100:10B981&height=250&section=header&text=KrishiNode%20AI&fontSize=80&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Protecting%20Crops%20With%20Real-Time%20AI&descAlignY=55&descSize=22" width="100%" alt="KrishiNode AI Header" />
 
 <br/>
-<a href="https://krishinode-ai.vercel.app">
+<a href="https://krishinode-ai.vercel.app/">
   <img src="https://readme-typing-svg.herokuapp.com?font=Plus+Jakarta+Sans&weight=600&size=24&pause=1000&color=10B981&center=true&vCenter=true&width=800&lines=🌱+Smart+AI+for+Healthier+Farms;🚜+Stop+Crop+Waste+Before+It+Starts;⚡+Real-Time+Alerts+for+Farmers;🌍+Securing+Our+Food+Supply" alt="Typing SVG" />
 </a>
 
@@ -19,7 +19,15 @@
   <img src="https://img.shields.io/badge/Datadog_Ready-632CA6?style=for-the-badge&logo=datadog&logoColor=white" />
 </p>
 
-<h3><a href="https://krishinode-ai.vercel.app">🌍 View Live Deployment</a> | <a href="YOUR_YOUTUBE_DEMO_LINK_HERE">🎥 Watch Demo Video</a></h3>
+<p align="center">
+  <a href="https://krishinode-ai.vercel.app/">
+    <img src="https://img.shields.io/badge/🌍_View_Live_Deployment-10B981?style=for-the-badge" alt="Live Deployment"/>
+  </a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="YOUR_YOUTUBE_DEMO_LINK_HERE">
+    <img src="https://img.shields.io/badge/🎥_Watch_Demo_Video-050505?style=for-the-badge" alt="Demo Video"/>
+  </a>
+</p>
 
 </div>
 
