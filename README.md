@@ -1,7 +1,6 @@
 <div align="center">
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:050505,100:10B981&height=250&section=header&text=KrishiNode%20AI&fontSize=80&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Site%20Reliability%20Engineering%20for%20Agritech&descAlignY=55&descSize=22" width="100%" alt="KrishiNode AI Header" />
-
 <br/>
 <a href="https://krishinode-ai.vercel.app/">
   <img src="https://readme-typing-svg.herokuapp.com?font=Plus+Jakarta+Sans&weight=600&size=24&pause=1000&color=10B981&center=true&vCenter=true&width=800&lines=🌱+Smart+AI+for+Healthier+Farms;🚜+Stop+Crop+Waste+Before+It+Starts;⚡+Real-Time+Alerts+for+Farmers;🌍+Securing+Our+Food+Supply" alt="Typing SVG" />
