@@ -1,13 +1,22 @@
 import os
-import json
 from flask import Flask, render_template, request, jsonify
 from groq import Groq
-from dotenv import load_dotenv
-
-load_dotenv()
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+# Only import load_dotenv if we are on a local machine
+if os.path.exists(".env"):
+    from dotenv import load_dotenv
+    load_dotenv()
 
 app = Flask(__name__)
+
+# Initialize Groq client
+# This will use the variable set in Vercel's Dashboard
+api_key = os.getenv("GROQ_API_KEY")
+
+if not api_key:
+    # This print will appear in your Vercel Logs if the key is missing
+    print("CRITICAL ERROR: GROQ_API_KEY is not set!")
+
+client = Groq(api_key=api_key)
 
 
 nodes_data = [
