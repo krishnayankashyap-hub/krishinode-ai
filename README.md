@@ -3,7 +3,7 @@
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:050505,100:10B981&height=250&section=header&text=KrishiNode%20AI&fontSize=80&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Protecting%20Crops%20With%20Real-Time%20AI&descAlignY=55&descSize=22" width="100%" alt="KrishiNode AI Header" />
 
 <br/>
-<a href="https://krishi-node.vercel.app">
+<a href="https://krishinode-ai.vercel.app">
   <img src="https://readme-typing-svg.herokuapp.com?font=Plus+Jakarta+Sans&weight=600&size=24&pause=1000&color=10B981&center=true&vCenter=true&width=800&lines=🌱+Smart+AI+for+Healthier+Farms;🚜+Stop+Crop+Waste+Before+It+Starts;⚡+Real-Time+Alerts+for+Farmers;🌍+Securing+Our+Food+Supply" alt="Typing SVG" />
 </a>
 
@@ -19,7 +19,7 @@
   <img src="https://img.shields.io/badge/Datadog_Ready-632CA6?style=for-the-badge&logo=datadog&logoColor=white" />
 </p>
 
-<h3><a href="[YOUR_VERCEL_LINK_HERE](https://krishinode-ai.vercel.app/)">🌍 View Live Deployment</a> | <a href="YOUR_YOUTUBE_DEMO_LINK_HERE">🎥 Watch Demo Video</a></h3>
+<h3><a href="https://krishinode-ai.vercel.app">🌍 View Live Deployment</a> | <a href="YOUR_YOUTUBE_DEMO_LINK_HERE">🎥 Watch Demo Video</a></h3>
 
 </div>
 
@@ -63,7 +63,7 @@ KrishiNode isn't just a standalone web app; it is built to be the "AI Brain" tha
 1. **The IoT Sensors (The Eyes):** Physical farm sensors (soil moisture, temperature, pump pressure) send their raw data using protocols like MQTT or HTTP.
 2. **The Dashboard (The Hub):** You route this sensor data directly into **Datadog, Grafana, or New Relic**. These tools are incredible at graphing data and spotting when numbers drop below normal levels.
 3. **The Webhook (The Trigger):** You set up an "Alert" in Datadog/Grafana. *Rule: If soil moisture drops below 20%, trigger an alert.*
-4. **The KrishiNode Connection (The Brain):** You configure that alert to send a **Webhook POST Request** directly to your KrishiNode API endpoint (e.g., `https://krishi-node.vercel.app/api/simulate`).
+4. **The KrishiNode Connection (The Brain):** You configure that alert to send a **Webhook POST Request** directly to your KrishiNode API endpoint (e.g., `https://krishinode-ai.vercel.app/api/simulate`).
 5. **The Magic:** As soon as Datadog detects the farm issue, it pings KrishiNode. KrishiNode's Groq-powered AI instantly reads the alert, generates a human-readable emergency repair plan, and displays it on the KrishiNode interface for the farmer.
 
 ---
