@@ -8,15 +8,16 @@ if os.path.exists(".env"):
 
 app = Flask(__name__)
 
-# Initialize Groq client
-# This will use the variable set in Vercel's Dashboard
-api_key = os.getenv("GROQ_API_KEY")
+def get_groq_client():
+    api_key = os.getenv("GROQ_API_KEY")
+    if not api_key:
+        raise ValueError("GROQ_API_KEY not found in environment!")
+    return Groq(api_key=api_key)
 
-if not api_key:
-    # This print will appear in your Vercel Logs if the key is missing
-    print("CRITICAL ERROR: GROQ_API_KEY is not set!")
-
-client = Groq(api_key=api_key)
+# Then, inside your @app.route('/api/simulate', methods=['POST']):
+@app.route('/api/simulate', methods=['POST'])
+def simulate():
+    client = get_groq_client()
 
 
 nodes_data = [
