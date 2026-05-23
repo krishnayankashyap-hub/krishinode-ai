@@ -1,15 +1,26 @@
 import os
-import json
 from flask import Flask, render_template, request, jsonify
 from groq import Groq
-from dotenv import load_dotenv
 
-load_dotenv()
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-app = Flask(__name__)
+if os.path.exists(".env"):
+    from dotenv import load_dotenv
+    load_dotenv()
 
-# Expanded "Farm-to-Fork" Database (For Everyone: Farmers, Logistics, Consumers)
+
+base_dir = os.path.dirname(os.path.abspath(__file__))
+template_dir = os.path.join(base_dir, 'templates')
+app = Flask(__name__, template_folder=template_dir)
+
+
+api_key = os.getenv("GROQ_API_KEY")
+if not api_key:
+    print("CRITICAL ERROR: GROQ_API_KEY is not set!")
+
+client = Groq(api_key=api_key)
+
+
+
 nodes_data = [
     {"id": "node_1", "name": "Rural Soil Sensor", "type": "Farmer Tools", "status": "Online", "log": "Ping OK. Soil moisture 45%."},
     {"id": "node_2", "name": "Smart Irrigation Valve", "type": "Farmer Tools", "status": "Online", "log": "Flow rate nominal. 12 L/min."},
@@ -29,11 +40,11 @@ def index():
 def get_nodes():
     return jsonify(nodes_data)
 
-# THIS IS THE REAL-WORLD BRIDGE: A Webhook listener for Datadog/Grafana
+
 @app.route('/api/webhook', methods=['POST'])
 def handle_real_webhook():
-    # In real life, Datadog posts JSON data here automatically.
-    # For the hackathon, we just acknowledge we have the architecture ready.
+    
+
     return jsonify({"status": "Webhook received from Datadog/IoT interface. Awaiting AI processing."}), 200
 
 @app.route('/api/simulate', methods=['POST'])
@@ -78,4 +89,4 @@ def process_incident():
     })
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+            app.run(host="0.0.0.0", port=8080, debug=True) 
