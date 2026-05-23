@@ -19,7 +19,7 @@
   <img src="https://img.shields.io/badge/Datadog_Ready-632CA6?style=for-the-badge&logo=datadog&logoColor=white" />
 </p>
 
-<h3><a href="YOUR_VERCEL_LINK_HERE">🌍 View Live Deployment</a> | <a href="YOUR_YOUTUBE_DEMO_LINK_HERE">🎥 Watch Demo Video</a></h3>
+<h3><a href="[YOUR_VERCEL_LINK_HERE](https://krishinode-ai.vercel.app/)">🌍 View Live Deployment</a> | <a href="YOUR_YOUTUBE_DEMO_LINK_HERE">🎥 Watch Demo Video</a></h3>
 
 </div>
 
