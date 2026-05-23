@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KrishiNode AI | Smart Farming SRE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { extend: { colors: { trueblack: '#050505', darkgray: '#111111' } } }
+        }
+    </script>
+
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        
+        .bg-pattern {
+            background-image: radial-gradient(#cbd5e1 1.5px, transparent 1.5px);
+            background-size: 28px 28px;
+        }
+        .dark .bg-pattern {
+            background-image: radial-gradient(#1e293b 1.5px, transparent 1.5px);
+        }
+
+       
+        .orb-1 { position: fixed; top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 60%); z-index: -1; filter: blur(40px); pointer-events: none;}
+        .orb-2 { position: fixed; bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(52,211,153,0.08) 0%, transparent 60%); z-index: -1; filter: blur(60px); pointer-events: none;}
+        .dark .orb-1 { background: radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 60%); }
+        .dark .orb-2 { background: radial-gradient(circle, rgba(52,211,153,0.05) 0%, transparent 60%); }
+
+       
+        .bento-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .dark .bento-card {
+            background: rgba(17, 17, 17, 0.7);
+        }
+        .bento-card:hover { transform: translateY(-4px); }
+
+        .flow-connector { position: absolute; top: 50%; left: 50%; width: 100%; height: 2px; z-index: 0; transform: translateY(-50%); }
+        .typing-cursor::after { content: '|'; animation: blink 1s step-start infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        .radar-ping { animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-trueblack text-slate-900 dark:text-white transition-colors duration-500 min-h-screen relative selection:bg-emerald-500 selection:text-white">
+
+    <div class="fixed inset-0 bg-pattern pointer-events-none -z-20"></div>
+    <div class="orb-1"></div>
+    <div class="orb-2"></div>
+
+    <div class="max-w-7xl mx-auto p-4 md:p-8">
+        
+        <nav class="flex justify-between items-center mb-10 pt-2">
+            <div class="inline-flex items-center space-x-2 bg-emerald-100/50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide border border-emerald-200 dark:border-emerald-800/50 backdrop-blur-md">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+                <span>Active Fleet Network</span>
+            </div>
+
+            <button onclick="toggleTheme()" class="p-3 rounded-full bg-white/80 dark:bg-darkgray/80 backdrop-blur-md border border-slate-200 dark:border-white/10 shadow-sm hover:shadow-md transition-all text-slate-600 dark:text-amber-400">
+                <svg id="theme-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            </button>
+        </nav>
+
+        <header class="mb-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 relative z-10">
+            <div class="max-w-2xl">
+                <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight mb-4 text-slate-900 dark:text-white">
+                    <span class="font-['Caveat'] text-6xl md:text-7xl relative inline-block text-emerald-600 dark:text-emerald-400 mr-2 -rotate-2">
+                        KrishiNode
+                        <svg class="absolute w-[110%] h-4 -bottom-1 -left-2 text-emerald-300 dark:text-emerald-700/50" fill="none" stroke="currentColor" viewBox="0 0 100 20" preserveAspectRatio="none"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 15Q30 5 95 15"></path></svg>
+                    </span> 
+                    AI
+                </h1>
+                <p class="text-slate-800 dark:text-slate-200 font-semibold text-lg leading-relaxed">
+                    Smart AI that finds and fixes real-world farming problems instantly. From seeds in the soil to fresh food on the shelf, we protect the harvest.
+                </p>
+            </div>
+            
+            <div class="flex items-center space-x-6 bg-white/80 dark:bg-darkgray/80 backdrop-blur-md p-3 px-6 rounded-full shadow-sm border border-slate-200 dark:border-white/10">
+                
+                <span class="text-sm tracking-widest uppercase transition-colors" id="sim-label">Simulated</span>
+
+                <div class="relative inline-block w-12 align-middle select-none transition duration-200 ease-in">
+                    <input type="checkbox" aria-label="Toggle Live Mode" name="toggle" id="mode-toggle" class="peer absolute block w-6 h-6 rounded-full bg-white dark:bg-slate-300 border-4 appearance-none cursor-pointer z-10 transition-transform duration-300 checked:right-0 checked:border-emerald-500" onclick="toggleMode()"/>
+                    <label for="mode-toggle" class="block overflow-hidden h-6 rounded-full bg-slate-200 dark:bg-slate-700 cursor-pointer peer-checked:bg-emerald-500"></label>
+                </div>
+
+                <span class="text-sm tracking-widest uppercase transition-colors" id="live-label">Live Stream</span>
+            </div>
+        </header>
+
+        <div class="flex flex-wrap gap-4 mb-14 relative z-20">
+            <div class="bento-card border border-slate-200 dark:border-white/5 p-4 rounded-full flex items-center space-x-4 shadow-sm hover:shadow-md">
+                <div class="bg-emerald-100 dark:bg-emerald-900/40 p-3 rounded-full text-emerald-600 dark:text-emerald-400"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg></div>
+                <div><h4 class="font-black text-xl text-slate-800 dark:text-white leading-none">30%</h4><p class="text-xs text-slate-500 font-medium mt-1">Less crop loss detected.</p></div>
+            </div>
+            <div class="bento-card border border-slate-200 dark:border-white/5 p-4 rounded-full flex items-center space-x-4 shadow-sm hover:shadow-md">
+                <div class="bg-emerald-100 dark:bg-emerald-900/40 p-3 rounded-full text-emerald-600 dark:text-emerald-400"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                <div><h4 class="font-black text-xl text-slate-800 dark:text-white leading-none">24/7</h4><p class="text-xs text-slate-500 font-medium mt-1">Autonomous monitoring.</p></div>
+            </div>
+            <div class="bento-card border border-slate-200 dark:border-white/5 p-4 rounded-full flex items-center space-x-4 shadow-sm hover:shadow-md">
+                <div class="bg-emerald-100 dark:bg-emerald-900/40 p-3 rounded-full text-emerald-600 dark:text-emerald-400"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+                <div><h4 class="font-black text-xl text-slate-800 dark:text-white leading-none">1-Click</h4><p class="text-xs text-slate-500 font-medium mt-1">Turns cryptic server logs into simple steps.</p></div>
+            </div>
+        </div>
+
+        <div id="live-overlay" class="hidden mb-14 bento-card rounded-3xl p-10 text-center border-2 border-emerald-400/50 shadow-lg shadow-emerald-500/10 z-20">
+            <div class="relative inline-flex h-8 w-8 mb-4">
+                <span class="radar-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-8 w-8 bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.8)]"></span>
+            </div>
+            <h3 class="text-2xl font-extrabold tracking-tight">Listening for Real IoT Webhooks</h3>
+            <p class="text-slate-500 dark:text-slate-400 mt-2 max-w-xl mx-auto text-sm leading-relaxed">The system is actively monitoring the farm through integrations like <strong class="text-slate-700 dark:text-slate-200">Datadog, Grafana, or New Relic</strong>. If a real sensor breaks, the payload will automatically trigger the AI diagnostic flow below.</p>
+        </div>
+
+        <div class="mb-6 flex justify-between items-end relative z-20">
+            <h2 class="text-2xl font-bold">Infrastructure Grid</h2>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">8 Active Nodes</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-20 relative z-20" id="nodes-container">
+            </div>
+
+        <div id="ai-panel" class="hidden opacity-0 transform translate-y-8 transition-all duration-700 ease-out mb-20 scroll-mt-10 z-20">
+            
+            <div class="bento-card rounded-[2.5rem] p-8 md:p-12 border-t-4 border-t-emerald-500 border border-slate-200 dark:border-white/10 shadow-2xl dark:shadow-none relative overflow-hidden">
+                
+                <div class="flex justify-between items-center mb-8 border-b border-slate-200 dark:border-white/10 pb-6 relative z-10">
+                    <h2 class="text-3xl font-extrabold tracking-tight flex items-center text-slate-800 dark:text-white">
+                        <svg class="w-8 h-8 mr-3 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Diagnostic Pipeline
+                    </h2>
+                    <button onclick="resetSystem()" class="text-sm font-bold text-slate-500 bg-slate-100 dark:bg-white/5 px-4 py-2 rounded-full hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">Clear</button>
+                </div>
+
+                <div class="flex flex-wrap gap-4 mb-8 bg-slate-50 dark:bg-trueblack p-4 rounded-2xl border border-slate-200 dark:border-white/5 relative z-10">
+                    <div class="flex-1 min-w-[150px]">
+                        <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mb-1">AI Confidence Score</p>
+                        <p class="text-xl font-black text-emerald-600 dark:text-emerald-400HUD-text" id="hud-confidence">--%</p>
+                    </div>
+                    <div class="hidden md:block w-px bg-slate-200 dark:bg-white/10"></div>
+                    <div class="flex-1 min-w-[150px]">
+                        <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mb-1">Est. Spoilage Risk (Krishi)</p>
+                        <p class="text-xl font-black text-rose-500 HUD-text" id="hud-risk">$---</p>
+                    </div>
+                    <div class="hidden md:block w-px bg-slate-200 dark:bg-white/10"></div>
+                    <div class="flex-1 min-w-[150px]">
+                        <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mb-1">Standard Error Log</p>
+                        <p class="font-mono text-xs text-rose-600 dark:text-rose-400 truncate HUD-text" id="system-log-text">Awaiting log...</p>
+                    </div>
+                </div>
+
+                <div class="relative mt-12 pt-4 relative z-10">
+                    <div class="hidden md:block flow-connector bg-slate-200 dark:bg-white/10"></div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+                        
+                        <div class="bg-white dark:bg-trueblack border border-slate-200 dark:border-white/10 rounded-3xl p-6 shadow-sm relative hover:border-emerald-400 transition-colors">
+                            <div class="absolute -top-4 left-6 bg-white dark:bg-darkgray border border-slate-200 dark:border-white/10 font-bold px-4 py-1 rounded-full text-xs shadow-sm flex items-center">
+                                <span class="w-2.5 h-2.5 rounded-full mr-2" id="dot-1"></span> Step 1: Root Cause
+                            </div>
+                            <p id="cause-text" class="text-slate-600 dark:text-slate-300 text-sm mt-4 font-medium leading-relaxed h-20 overflow-y-auto">Awaiting telemetry analysis...</p>
+                        </div>
+
+                        <div class="bg-white dark:bg-trueblack border border-slate-200 dark:border-white/10 rounded-3xl p-6 shadow-sm relative hover:border-emerald-400 transition-colors">
+                            <div class="absolute -top-4 left-6 bg-white dark:bg-darkgray border border-slate-200 dark:border-white/10 font-bold px-4 py-1 rounded-full text-xs shadow-sm flex items-center">
+                                <span class="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600 mr-2" id="dot-2"></span> Step 2: Impact Analysis
+                            </div>
+                            <p id="impact-text" class="text-slate-600 dark:text-slate-300 text-sm mt-4 font-medium leading-relaxed h-20 overflow-y-auto">Calculating blast radius...</p>
+                        </div>
+
+                        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl shadow-emerald-500/20 relative">
+                             <div class="absolute -top-4 left-6 bg-emerald-500 text-white font-bold px-4 py-1 rounded-full text-xs shadow-md flex items-center">
+                                <span class="w-2.5 h-2.5 rounded-full bg-white mr-2 animate-pulse" id="dot-3"></span> Step 3: Action Plan
+                            </div>
+                            <p id="action-text" class="text-slate-200 text-sm mt-4 font-semibold leading-relaxed h-20 overflow-y-auto">Formulating resolution protocol...</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="mt-12 flex justify-end pt-8 border-t border-slate-100 dark:border-white/5 relative z-10">
+                    <button id="dispatch-btn" onclick="dispatchAction()" class="group relative bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 px-8 rounded-2xl shadow-xl transition-all hover:scale-105 flex items-center w-full md:w-auto justify-center overflow-hidden">
+                         <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></span>
+                        <span id="btn-text" class="flex items-center">
+                            <svg class="w-5 h-5 mr-3 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            Execute Field Dispatch
+                        </span>
+                        <svg id="btn-spinner" class="animate-spin h-5 w-5 hidden text-emerald-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="fixed bottom-10 right-10 bg-white dark:bg-darkgray border border-slate-200 dark:border-white/10 p-6 rounded-3xl shadow-2xl flex items-start max-w-sm z-50 transform translate-y-20 opacity-0 transition-all duration-500 pointer-events-none">
+        <div class="bg-emerald-100 dark:bg-emerald-900/50 rounded-full p-2 mr-4 text-emerald-600 dark:text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.5)]">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <div>
+            <h4 class="font-black text-emerald-600 dark:text-emerald-400 text-lg">Ticket Dispatched</h4>
+            <p class="text-slate-600 dark:text-slate-300 text-sm mt-1 font-medium leading-relaxed">Payload sent to field unit via WhatsApp API with physical coordinates.</p>
+        </div>
+    </div>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { trueblack: '#050505', darkgray: '#111111' },
+                    keyframes: { shimmer: { '100%': { transform: 'translateX(100%)' } } }
+                }
+            }
+        }
+    </script>
+
+    <script>
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>';
+            } else {
+                html.classList.add('dark');
+
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+            }
+        }
+
+       
+        const nodeDescriptions = {
+            "node_1": "Monitors volumetric water content and soil pH.",
+            "node_2": "Automates flow schedules based on triggers.",
+            "node_3": "Aerial multi-spectral imaging for crop health.",
+            "node_4": "Tracks logistics telemetry and reefer temp.",
+            "node_5": "Manages HVAC APIs to prevent spoilage.",
+            "node_6": "Industrial belt tracking motor stress.",
+            "node_7": "Monitors retail limits for restocking.",
+            "node_8": "Tracks last-mile delivery and ETA statuses."
+        };
+
+        const nodesContainer = document.getElementById('nodes-container');
+        const aiPanel = document.getElementById('ai-panel');
+        const liveOverlay = document.getElementById('live-overlay');
+        const toggleInput = document.getElementById('mode-toggle');
+        
+        const simLabel = document.getElementById('sim-label');
+        const liveLabel = document.getElementById('live-label');
+
+        let currentNodes = [];
+        let isLiveMode = false;
+
+        async function loadNodes() {
+            const res = await fetch('/api/nodes');
+            currentNodes = await res.json();
+            renderNodes();
+        }
+
+        
+        function updateLabels() {
+            if (isLiveMode) {
+             
+                liveLabel.classList.remove('text-slate-400', 'dark:text-slate-500', 'font-bold');
+                liveLabel.classList.add('text-emerald-600', 'dark:text-emerald-400', 'font-extrabold');
+                
+               
+                simLabel.classList.remove('text-emerald-600', 'dark:text-emerald-400', 'font-extrabold');
+                simLabel.classList.add('text-slate-400', 'dark:text-slate-500', 'font-bold');
+            } else {
+                
+                simLabel.classList.remove('text-slate-400', 'dark:text-slate-500', 'font-bold');
+                simLabel.classList.add('text-emerald-600', 'dark:text-emerald-400', 'font-extrabold');
+                
+                
+                liveLabel.classList.remove('text-emerald-600', 'dark:text-emerald-400', 'font-extrabold');
+                liveLabel.classList.add('text-slate-400', 'dark:text-slate-500', 'font-bold');
+            }
+        }
+
+        function toggleMode() {
+            isLiveMode = toggleInput.checked;
+            updateLabels(); 
+            resetSystem(); 
+            if(isLiveMode) {
+                liveOverlay.classList.remove('hidden');
+                liveOverlay.classList.add('animate-enter');
+            } else {
+                liveOverlay.classList.add('hidden');
+                liveOverlay.classList.remove('animate-enter');
+            }
+            renderNodes(); 
+        }
+
+        function renderNodes() {
+            nodesContainer.innerHTML = '';
+            currentNodes.forEach(node => {
+                const isFailed = node.status === 'Failed';
+                const indicatorColor = isFailed ? 'bg-red-500 animate-pulse shadow-[0_0_10px_rgba(244,63,94,0.8)]' : 'bg-emerald-500';
+                const borderState = isFailed ? 'border-red-400 dark:border-red-500/50 bg-red-50/50 dark:bg-red-900/10 shadow-lg shadow-red-900/10' : 'border-white/60 hover:border-emerald-300 dark:hover:border-emerald-500/50 bg-white/80 dark:bg-darkgray/80 shadow-slate-900/5';
+                const desc = nodeDescriptions[node.id] || "Infrastructure tracking node.";
+
+                const card = `
+                    <div class="bento-card rounded-3xl p-6 flex flex-col justify-between h-60 border ${borderState}">
+                        <div>
+                            <div class="flex justify-between items-center mb-4 relative z-10">
+                                <p class="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest bg-white/50 px-3 py-1 rounded-full border border-slate-100 shadow-sm">${node.type}</p>
+                                <span class="w-3.5 h-3.5 rounded-full ${indicatorColor}"></span>
+                            </div>
+                            <h3 class="font-black text-xl mb-1leading-tight h-10 truncate relative z-10 text-slate-800 dark:text-white">${node.name}</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium leading-relaxed line-clamp-2 relative z-10 h-10">${desc}</p>
+                        </div>
+
+                        <div class="relative z-10">
+                             <p class="text-[9px] font-mono text-slate-400 dark:text-slate-500 mb-2 truncate bg-slate-50 dark:bg-trueblack p-1.5 rounded inline-block border border-slate-100 dark:border-white/5">${node.log}</p>
+                            <button onclick="triggerFailure('${node.id}', '${node.name}', '${node.type}')" 
+                                    class="w-full py-2.5 ${isFailed ? 'bg-rose-100 text-rose-500' : 'bg-slate-900 hover:bg-slate-800 text-white shadow-md'} rounded-xl font-bold text-sm transition-all flex items-center justify-center shadow-sm"
+                                    ${isFailed || isLiveMode ? 'disabled opacity-50 cursor-not-allowed' : ''}>
+                                ${isLiveMode ? 'Awaiting Data...' : (isFailed ? 'Alert Active' : 'Simulate Outage')}
+                            </button>
+                        </div>
+                    </div>
+                `;
+                nodesContainer.innerHTML += card;
+            });
+        }
+
+        async function typeText(elementId, text, speed = 15) {
+            const el = document.getElementById(elementId);
+            el.innerHTML = '';
+            el.classList.add('typing-cursor');
+            for(let i=0; i<text.length; i++) {
+                el.innerHTML += text.charAt(i);
+                await new Promise(r => setTimeout(r, speed));
+            }
+            el.classList.remove('typing-cursor');
+        }
+
+        async function triggerFailure(id, name, type) {
+            const nodeIndex = currentNodes.findIndex(n => n.id === id);
+            currentNodes[nodeIndex].status = 'Failed';
+            renderNodes();
+            
+            aiPanel.classList.remove('hidden');
+            setTimeout(() => {
+                aiPanel.classList.remove('opacity-0', 'translate-y-8');
+                aiPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
+            
+            document.getElementById('system-log-text').innerText = "Establishing connection...";
+            document.getElementById('cause-text').innerHTML = "<span class='animate-pulse text-orange-400'>Analyzing models...</span>"; 
+            document.getElementById('impact-text').innerHTML = "<span class='animate-pulse text-rose-400'>Calculating...</span>"; 
+            document.getElementById('action-text').innerHTML = "<span class='animate-pulse text-emerald-600'>Standing by...</span>";
+            document.getElementById('hud-confidence').innerText = "Calc...";
+            document.getElementById('hud-risk').innerText = "Calc...";
+            
+            document.getElementById('dot-1').className = "w-2.5 h-2.5 rounded-full mr-2 animate-pulse bg-emerald-500";
+            document.getElementById('dot-2').className = "w-2.5 h-2.5 rounded-full mr-2 bg-slate-300 dark:bg-slate-600";
+            document.getElementById('dot-3').className = "w-2.5 h-2.5 rounded-full bg-white mr-2";
+
+            const response = await fetch('/api/simulate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ node_id: id, node_name: name, node_type: type })
+            });
+            const data = await response.json();
+
+           
+            document.getElementById('system-log-text').innerText = data.system_error;
+            document.getElementById('hud-confidence').innerText = (Math.random() * (99.9 - 94.0) + 94.0).toFixed(1) + "%";
+            document.getElementById('hud-risk').innerText = "$" + Math.floor(Math.random() * (25000 - 8000) + 8000).toLocaleString();
+            
+            await typeText('cause-text', data.cause);
+            document.getElementById('dot-1').className = "w-2.5 h-2.5 rounded-full mr-2 bg-emerald-500";
+            document.getElementById('dot-2').className = "w-2.5 h-2.5 rounded-full mr-2 animate-pulse bg-emerald-500";
+            
+            await typeText('impact-text', data.impact);
+            document.getElementById('dot-2').className = "w-2.5 h-2.5 rounded-full mr-2 bg-emerald-500";
+            document.getElementById('dot-3').className = "w-2.5 h-2.5 rounded-full bg-white mr-2 animate-pulse";
+            
+            await typeText('action-text', data.action);
+        }
+
+        function dispatchAction() {
+            const btn = document.getElementById('dispatch-btn');
+            const btnText = document.getElementById('btn-text');
+            const spinner = document.getElementById('btn-spinner');
+            const toast = document.getElementById('toast');
+
+            btnText.classList.add('hidden');
+            spinner.classList.remove('hidden');
+            btn.classList.add('cursor-wait');
+
+            setTimeout(() => {
+                spinner.classList.add('hidden');
+                btnText.classList.remove('hidden');
+                btn.classList.remove('cursor-wait');
+                
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateY(0)';
+                
+                setTimeout(() => { 
+                    toast.style.opacity = '0'; 
+                    toast.style.transform = 'translateY(30px)';
+                }, 4000);
+            }, 1200);
+        }
+
+        function resetSystem() {
+            aiPanel.classList.add('opacity-0', 'translate-y-8');
+            setTimeout(() => { aiPanel.classList.add('hidden'); }, 700);
+            document.getElementById('toast').style.opacity = '0';
+            document.getElementById('toast').style.transform = 'translateY(30px)';
+            document.getElementById('hud-confidence').innerText = "--%";
+            document.getElementById('hud-risk').innerText = "$---";
+            loadNodes(); 
+        }
+
+        
+        updateLabels(); 
+        loadNodes();
+    </script>
+</body>
+</html>
