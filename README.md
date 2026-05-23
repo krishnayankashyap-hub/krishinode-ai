@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:050505,100:10B981&height=250&section=header&text=KrishiNode%20AI&fontSize=80&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Protecting%20Crops%20With%20Real-Time%20AI&descAlignY=55&descSize=22" width="100%" alt="KrishiNode AI Header" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:050505,100:10B981&height=250&section=header&text=KrishiNode%20AI&fontSize=80&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=Site%20Reliability%20Engineering%20for%20Agritech&descAlignY=55&descSize=22" width="100%" alt="KrishiNode AI Header" />
 
 <br/>
 <a href="https://krishinode-ai.vercel.app/">
@@ -55,11 +55,12 @@ That is why we built **KrishiNode AI**. It acts as a 24/7 digital guardian for f
 ---
 
 ## 📸 Sneak Peek
-
+<img width="1434" height="894" alt="Screenshot 2026-05-24 at 3 25 19 AM" src="https://github.com/user-attachments/assets/71f18019-c70c-49ac-bdb3-3c8e56fe9a9a" />
 > **Note:** *Click the image below to watch how KrishiNode responds to a live farm outage in milliseconds.*
 
 <div align="center">
-  <img src="https://via.placeholder.com/800x450/050505/10B981?text=+Drop+Your+Animated+App+GIF+Here+" alt="KrishiNode Demo UI" style="border-radius: 10px; box-shadow: 0 4px 14px 0 rgba(0,0,0,0.5);"/>
+  <img src=" <img width="1434" height="894" alt="Screenshot 2026-05-24 at 3 26 09 AM" src="https://github.com/user-attachments/assets/7b7ea853-f820-48c5-9e54-bfe41434d53f" />
+" alt="KrishiNode Demo UI" style="border-radius: 10px; box-shadow: 0 4px 14px 0 rgba(0,0,0,0.5);"/>
 </div>
 
 ---
