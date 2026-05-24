@@ -22,11 +22,11 @@
 
 <p align="center">
   <a href="https://krishinode-ai.vercel.app/">
-    <img src="https://img.shields.io/badge/🌍_View_Live_Deployment-10B981?style=for-the-badge" alt="Live Deployment"/>
+    <img src="https://img.shields.io/badge/🌍 Click_View_Live_Deployment-10B981?style=for-the-badge" alt="Live Deployment"/>
   </a>
   &nbsp;&nbsp;&nbsp;
   <a href="YOUR_YOUTUBE_DEMO_LINK_HERE">
-    <img src="https://img.shields.io/badge/🎥_Watch_Demo_Video-050505?style=for-the-badge" alt="Demo Video"/>
+    <img src="https://img.shields.io/badge/🎥 Click_Watch_Demo_Video-050505?style=for-the-badge" alt="Demo Video"/>
   </a>
 </p>
 
